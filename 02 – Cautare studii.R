@@ -1,6 +1,8 @@
 # Instalarea pachetelor necesare
 if(!require(devtools)) install.packages("devtools")
 devtools::install_github("nealhaddaway/citationchaser")
+devtools::install_github("nealhaddaway/citationchaser", ref="DrMattG-patch-vlookup")
+# Vezi si https://estech.shinyapps.io/citationchaser/
 
 # Incarcarea librariilor necesare
 library(citationchaser)
