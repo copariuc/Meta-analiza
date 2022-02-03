@@ -704,3 +704,8 @@ rm(list = ls(pattern = "^g"), temp)
 ## Buckels E.E. Trapnell P. D., Andjelovic T, Paulhus D.L. (2018)
 ## Internet Trolling and Everyday Sadism: Parallel Effects on Pain Perception and Moral Judgment
 
+temp <- efecte %>%
+  dplyr::mutate(ponderare = as.numeric(weight) * as.numeric(es))
+sum(temp$ponderare, na.rm = T) / sum(as.numeric(temp$weight), na.rm = T)
+1/sum(as.numeric(temp$weight), na.rm = T)
+
