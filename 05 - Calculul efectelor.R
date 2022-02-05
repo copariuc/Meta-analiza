@@ -218,15 +218,15 @@ rm(list = ls(pattern = "^g"), n, conf.lvl, r, year)
 ## O. Bogolyubova, P. Panicheva, R. Tikhonov, V. Ivanov, Y. Ledovaya (2018) 
 ## Dark personalities on Facebook: Harmful online behaviors and language
 year <- tabel.surse[which(tabel.surse$label == "ref_006"),]$year
-g.1 <- esc_beta(beta = 1.00, sdy = 0.06 * sqrt(6724), grp1n = 6724/2, grp2n = 6724/2, 
+g.1 <- esc_beta(beta = 1.00, sdy = 0.06 * sqrt(1487 + 5237), grp1n = 1487, grp2n = 5237, 
                   es.type = "g", study = "Bogolyubova et al. (2018)")
 g.1.m.1 <- "Harmfull"; g.1.m.2 <- "Psychopathy"; g.1.rxx <- NA; g.1.ryy <- .72
 
-g.2 <- esc_beta(beta = 0.01, sdy = 0.05 * sqrt(6724), grp1n = 6724/2, grp2n = 6724/2, 
+g.2 <- esc_beta(beta = 0.01, sdy = 0.05 * sqrt(1487 + 5237), grp1n = 1487, grp2n = 5237, 
                   es.type = "g", study = "Bogolyubova et al. (2018)")
 g.2.m.1 <- "Harmfull"; g.2.m.2 <- "Machiavellianism"; g.2.rxx <- NA; g.2.ryy <- .72
 
-g.3 <- esc_beta(beta = 0.01, sdy = 0.05 * sqrt(6724), grp1n = 6724/2, grp2n = 6724/2, 
+g.3 <- esc_beta(beta = 0.01, sdy = 0.05 * sqrt(1487 + 5237), grp1n = 1487, grp2n = 5237,
                   es.type = "g", study = "Bogolyubova et al. (2018)")
 g.3.m.1 <- "Harmfull"; g.3.m.2 <- "Narcissism"; g.3.rxx <- NA; g.3.ryy <- .72
 
@@ -247,19 +247,19 @@ rm(list = ls(pattern = "^g"), year, temp)
 ## N. Craker, E. March (2016)
 ## The dark side of Facebook: The Dark Tetrad, negative social potency, and trolling behaviours
 year <- tabel.surse[which(tabel.surse$label == "ref_012"),]$year
-g.1 <- esc_beta(beta = 0.07, sdy = 0.21 * sqrt(396), grp1n = 396/2, grp2n = 396/2,
+g.1 <- esc_beta(beta = 0.07, sdy = 0.21 * sqrt(94 + 296), grp1n = 94, grp2n = 296,
                    es.type = "g", study = "Craker et al. (2016)")
 g.1.m.1 <- "Trolling"; g.1.m.2 <- "Sadism"; g.1.rxx <- .70; g.1.ryy <- .58
 
-g.2 <- esc_beta(beta = -0.00, sdy = 0.05 * sqrt(396), grp1n = 396/2, grp2n = 396/2,
+g.2 <- esc_beta(beta = -0.00, sdy = 0.05 * sqrt(94 + 296), grp1n = 94, grp2n = 296,
                    es.type = "g", study = "Craker et al. (2016)")
 g.2.m.1 <- "Trolling"; g.2.m.2 <- "Machiavellianism"; g.2.rxx <- .70; g.2.ryy <- .80
 
-g.3 <- esc_beta(beta = 0.06, sdy = 0.05 * sqrt(396), grp1n = 396/2, grp2n = 396/2,
+g.3 <- esc_beta(beta = 0.06, sdy = 0.05 * sqrt(94 + 296), grp1n = 94, grp2n = 296,
                    es.type = "g", study = "Craker et al. (2016)")
 g.3.m.1 <- "Trolling"; g.3.m.2 <- "Psychopathy"; g.3.rxx <- .70; g.3.ryy <- .75
 
-g.4 <- esc_beta(beta = -0.01, sdy = 0.03 * sqrt(396), grp1n = 396/2, grp2n = 396/2,
+g.4 <- esc_beta(beta = -0.01, sdy = 0.03 * sqrt(94 + 296), grp1n = 94, grp2n = 296,
                     es.type = "g", study = "Craker et al. (2016)")
 g.4.m.1 <- "Trolling"; g.4.m.2 <- "Narcissism"; g.4.rxx <- .70; g.4.ryy <- .82
 ### Combinare efecte si construirea bazei de date a efectelor ####
@@ -279,27 +279,27 @@ rm(list = ls(pattern = "^g"), year, temp)
 ## A. K. Goodboy, M. M. Martin (2015) 
 ## The personality profile of a cyberbully: Examining the Dark Triad
 year <- tabel.surse[which(tabel.surse$label == "ref_020"),]$year
-g.1 <- esc_beta(beta = 0.09, sdy = 0.10 * sqrt(227), grp1n = 227/2, grp2n = 227/2,
+g.1 <- esc_beta(beta = 0.09, sdy = 0.10 * sqrt(104 + 112), grp1n = 104, grp2n = 112,
                   es.type = "g", study = "Goodboy et al. (2015)")
 g.1.m.1 <- "Visual Cyberbullying"; g.1.m.2 <- "Machiavellianism"; g.1.rxx <- .84; g.1.ryy <- .79
 
-g.2 <- esc_beta(beta = 0.27, sdy = 0.10 * sqrt(227), grp1n = 227/2, grp2n = 227/2,
+g.2 <- esc_beta(beta = 0.27, sdy = 0.10 * sqrt(104 + 112), grp1n = 104, grp2n = 112,
                   es.type = "g", study = "Goodboy et al. (2015)")
 g.2.m.1 <- "Visual Cyberbullying"; g.2.m.2 <- "Psychopathy"; g.2.rxx <- .84; g.2.ryy <- .80
 
-g.3 <- esc_beta(beta = 0.05, sdy = 0.09 * sqrt(227), grp1n = 227/2, grp2n = 227/2,
+g.3 <- esc_beta(beta = 0.05, sdy = 0.09 * sqrt(104 + 112), grp1n = 104, grp2n = 112,
                   es.type = "g", study = "Goodboy et al. (2015)")
 g.3.m.1 <- "Visual Cyberbullying"; g.3.m.2 <- "Narcissism"; g.3.rxx <- .84; g.3.ryy <- .82
 
-g.4 <- esc_beta(beta = 0.07, sdy = 0.12 * sqrt(227), grp1n = 227/2, grp2n = 227/2,
+g.4 <- esc_beta(beta = 0.07, sdy = 0.12 * sqrt(104 + 112), grp1n = 104, grp2n = 112,
                   es.type = "g", study = "Goodboy et al. (2015)")
 g.4.m.1 <- "Text Cyberbullying"; g.4.m.2 <- "Machiavellianism"; g.4.rxx <- .87; g.4.ryy <- .79
 
-g.5 <- esc_beta(beta = 0.30, sdy = 0.11 * sqrt(227), grp1n = 227/2, grp2n = 227/2,
+g.5 <- esc_beta(beta = 0.30, sdy = 0.11 * sqrt(104 + 112), grp1n = 104, grp2n = 112,
                   es.type = "g", study = "Goodboy et al. (2015)")
 g.5.m.1 <- "Text Cyberbullying"; g.5.m.2 <- "Psychopathy"; g.5.rxx <- .87; g.5.ryy <- .80
 
-g.6 <- esc_beta(beta = 0.12, sdy = 0.10 * sqrt(227), grp1n = 227/2, grp2n = 227/2,
+g.6 <- esc_beta(beta = 0.12, sdy = 0.10 * sqrt(104 + 112), grp1n = 104, grp2n = 112,
                   es.type = "g", study = "Goodboy et al. (2015)")
 g.6.m.1 <- "Text Cyberbullying"; g.6.m.2 <- "Narcissism"; g.6.rxx <- .87; g.6.ryy <- .82
 
@@ -422,17 +422,17 @@ rm(list = ls(pattern = "^g"), year, conf.lvl, n, r)
 ## Dark Triad personality traits and adolescent cyber-aggression
 year <- tabel.surse[which(tabel.surse$label == "ref_045"),]$year
 t.val <- qt(0.05 / 2, df = 277); beta <- 0.60
-g.1 <- esc_beta(beta = beta, sdy = beta / abs(t.val), grp1n = 277/2, grp2n = 277/2,
+g.1 <- esc_beta(beta = beta, sdy = beta / abs(t.val), grp1n = 0.37 * 277, grp2n = 0.63 * 277,
                   es.type = "g", study = "Pabian et al. (2015)")
 g.1.m.1 <- "Cyber Aggression"; g.1.m.2 <- "Psychopathy"; g.1.rxx <- .84; g.1.ryy <- .77
 
 t.val <- qt(0.199 / 2, df = 277); beta <- -0.36
-g.2 <- esc_beta(beta = beta, sdy = beta / abs(t.val), grp1n = 277/2, grp2n = 277/2,
+g.2 <- esc_beta(beta = beta, sdy = beta / abs(t.val), grp1n = 0.37 * 277, grp2n = 0.63 * 277,
                    es.type = "g", study = "Pabian et al. (2015)")
 g.2.m.1 <- "Cyber Aggression"; g.2.m.2 <- "Machiavellianism"; g.2.rxx <- .84; g.2.ryy <- .74
 
 t.val <- qt(0.055 / 2, df = 277); beta <- 0.23
-g.3 <- esc_beta(beta = beta, sdy = beta / abs(t.val), grp1n = 277/2, grp2n = 277/2,
+g.3 <- esc_beta(beta = beta, sdy = beta / abs(t.val), grp1n = 0.37 * 277, grp2n = 0.63 * 277,
                    es.type = "g", study = "Pabian et al. (2015)")
 g.3.m.1 <- "Cyber Aggression"; g.3.m.2 <- "Narcissism"; g.3.rxx <- .84; g.3.ryy <- .61
 ### Combinare efecte si construirea bazei de date a efectelor ####
@@ -452,19 +452,19 @@ rm(list = ls(pattern = "^g"), temp, year, t.val, beta)
 ## Stiff C. (2019)
 ## The Dark Triad and Facebook surveillance: How Machiavellianism, psychopathy, but not narcissism predict using Facebook to spy on others
 year <- tabel.surse[which(tabel.surse$label == "ref_053"),]$year
-g.1 <- esc_beta(beta = 0.16, sdy = 0.10 * sqrt(259), grp1n = 259/2, grp2n = 259/2,
+g.1 <- esc_beta(beta = 0.16, sdy = 0.10 * sqrt(108 + 150), grp1n = 108, grp2n = 150,
                    es.type = "g", study = "Pabian et al. (2019)")
 g.1.m.1 <- "Facebook tracking"; g.1.m.2 <- "Machiavellianism"; g.1.rxx <- .7; g.1.ryy <- .7
 
-g.2 <- esc_beta(beta = 0.04, sdy = 0.09 * sqrt(259), grp1n = 259/2, grp2n = 259/2,
+g.2 <- esc_beta(beta = 0.04, sdy = 0.09 * sqrt(108 + 150), grp1n = 108, grp2n = 150,
                     es.type = "g", study = "Pabian et al. (2019)")
 g.2.m.1 <- "Facebook investigating"; g.2.m.2 <- "Machiavellianism"; g.2.rxx <- .7; g.2.ryy <- .7
 
-g.3 <- esc_beta(beta = 0.27, sdy = 0.10 * sqrt(259), grp1n = 259/2, grp2n = 259/2,
+g.3 <- esc_beta(beta = 0.27, sdy = 0.10 * sqrt(108 + 150), grp1n = 108, grp2n = 150,
                     es.type = "g", study = "Pabian et al. (2019)")
 g.3.m.1 <- "Facebook tracking"; g.3.m.2 <- "Psychopathy"; g.3.rxx <- .7; g.3.ryy <- .7
 
-g.4 <- esc_beta(beta = 0.10, sdy = 0.09 * sqrt(259), grp1n = 259/2, grp2n = 259/2,
+g.4 <- esc_beta(beta = 0.10, sdy = 0.09 * sqrt(108 + 150), grp1n = 108, grp2n = 150,
                     es.type = "g", study = "Pabian et al. (2019)")
 g.4.m.1 <- "Facebook investigating"; g.4.m.2 <- "Psychopathy"; g.4.rxx <- .7; g.4.ryy <- .7
 
@@ -855,6 +855,95 @@ rm(list = ls(pattern = "^g"), temp, year)
 ## Duncan Z., March E. (2019) 
 ## Examining the Dark Tetrad and Its Links to Cyberbullying
 year <- tabel.surse[which(tabel.surse$label == "ref_150"),]$year
+g.1 <- esc_beta(beta = .08, sdy = 0.03 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.1.m.1 <- "Antisocial-general"; g.1.m.2 <- "Narcissism"; g.1.rxx <- .85; g.1.ryy <- .69
+
+g.2 <- esc_beta(beta = .09, sdy = 0.03 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.2.m.1 <- "Antisocial-general"; g.2.m.2 <- "Machiavellianism"; g.2.rxx <- .85; g.2.ryy <- .74
+
+g.3 <- esc_beta(beta = .21, sdy = 0.03 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.3.m.1 <- "Antisocial-general"; g.3.m.2 <- "Psychopathy"; g.3.rxx <- .85; g.3.ryy <- .73
+
+g.4 <- esc_beta(beta = .26, sdy = 0.03 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.4.m.1 <- "Antisocial-general"; g.4.m.2 <- "Sadism"; g.4.rxx <- .85; g.4.ryy <- .86
+
+g.5 <- esc_beta(beta = .21, sdy = 0.04 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.5.m.1 <- "Antisocial-esteem"; g.5.m.2 <- "Machiavellianism"; g.5.rxx <- .89; g.5.ryy <- .74
+
+g.6 <- esc_beta(beta = .06, sdy = 0.05 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.6.m.1 <- "Antisocial-esteem"; g.6.m.2 <- "Psychopathy"; g.6.rxx <- .89; g.6.ryy <- .73
+
+g.7 <- esc_beta(beta = .03, sdy = 0.04 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.7.m.1 <- "Antisocial-esteem"; g.7.m.2 <- "Sadism"; g.7.rxx <- .89; g.7.ryy <- .86
+
+g.8 <- esc_beta(beta = .03, sdy = 0.02 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.8.m.1 <- "Antisocial-sexual"; g.8.m.2 <- "Narcissism"; g.8.rxx <- .67; g.8.ryy <- .69
+
+g.9 <- esc_beta(beta = .11, sdy = 0.02 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.9.m.1 <- "Antisocial-sexual"; g.9.m.2 <- "Machiavellianism"; g.9.rxx <- .67; g.9.ryy <- .74
+
+g.10 <- esc_beta(beta = .36, sdy = 0.02 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                es.type = "g", study = "Duncan et al. (2019)")
+g.10.m.1 <- "Antisocial-sexual"; g.10.m.2 <- "Psychopathy"; g.10.rxx <- .67; g.10.ryy <- .73
+
+g.11 <- esc_beta(beta = .10, sdy = 0.02 * sqrt(587), grp1n = 0.21*587, grp2n = 0.79*587, 
+                 es.type = "g", study = "Duncan et al. (2019)")
+g.11.m.1 <- "Antisocial-sexual"; g.11.m.2 <- "Sadism"; g.11.rxx <- .67; g.11.ryy <- .86
+
+### Combinare efecte si construirea bazei de date a efectelor ####
+temp <- combine_esc(g.1, g.2, g.3, g.4, g.5, g.6, g.7, g.8, g.9, g.10, g.11)
+temp <- cbind(temp,
+              c(rep(year, 11)),
+              c(g.1.m.1, g.2.m.1, g.3.m.1, g.4.m.1, g.5.m.1, g.6.m.1, g.7.m.1, g.8.m.1, g.9.m.1, 
+                g.10.m.1, g.11.m.1),
+              c(g.1.m.2, g.2.m.2, g.3.m.2, g.4.m.2, g.5.m.2, g.6.m.2, g.7.m.2, g.8.m.2, g.9.m.2, 
+                g.10.m.2, g.11.m.2),
+              c(g.1.rxx, g.2.rxx, g.3.rxx, g.4.rxx, g.5.rxx, g.6.rxx, g.7.rxx, g.8.rxx, g.9.rxx, 
+                g.10.rxx, g.11.rxx),
+              c(g.1.ryy, g.2.ryy, g.3.ryy, g.4.ryy, g.5.ryy, g.6.ryy, g.7.ryy, g.8.ryy, g.9.ryy, 
+                g.10.ryy, g.11.ryy))
+colnames(temp) <- c(names(temp[1:9]), "year", "moderator.1", "moderator.2", "alpha.1", "alpha.2")
+efecte <- rbind(efecte, temp)
+rm(list = ls(pattern = "^g"), temp)
+
+### Combinare efecte si construirea bazei de date a efectelor ####
+r = .21; n = 587; conf.lvl = .95
+g.12.es <- hedges_g(d = cohens_d(r = r), totaln = n)
+g.12.se <- 1/sqrt(n - 3)
+g.12.ci <- convert_r2z(r) + c(-1, 1) * 
+  g.12.se * qnorm((1 + conf.lvl) / 2)
+g.12.ci <- hedges_g(d = cohens_d(r = convert_z2r(
+  g.12.ci)), totaln = n)
+g.12.study <- "Duncan et al. (2019)"
+g.12.m.1 <- "Antisocial-general"; g.12.m.2 <- "Narcissism"; g.12.rxx <- .85; g.12.ryy <- .69
+
+
+n= 587
+Antisocial-general = .85
+Antisocial-esteem = .89
+Antisocial-sexual = .67
+Narcissism = .69
+Machiavellianism = .74
+Psychopathy = .73
+Sadism = .86
+
+
+
+
+
+
+
+
+
 
 ## 15. Studiul ref_159 - CODARE ####
 ## Ferenczi N., Marshall T.C., Bejanyan K. (2017) 
