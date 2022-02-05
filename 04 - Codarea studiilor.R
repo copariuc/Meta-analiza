@@ -53,7 +53,6 @@ bd.meta$sample<- NA; bd.meta$sample[1] <- "Convenienta"
 bd.meta$measure <- NA; bd.meta$measure[1] <- "Standardizata"
 bd.meta$method <- NA; bd.meta$method[1] <- "Chestionar"
 
-
 ## 2. Studiul ref_006 - CODARE ####
 ## O. Bogolyubova, P. Panicheva, R. Tikhonov, V. Ivanov, Y. Ledovaya (2018) - Dark personalities on Facebook: Harmful online behaviors and language
 # Caracteristici ale participantilor
@@ -165,6 +164,7 @@ bd.meta$sample[7] <- "Convenienta"
 # Caracteristici de masurare
 bd.meta$measure[7] <- "Standardizata"
 bd.meta$method[7] <- "Chestionar"
+
 ## 8. Studiul ref_053 - CODARE ####
 ## Stiff C. (2019) - The Dark Triad and Facebook surveillance: How Machiavellianism, psychopathy, but not narcissism predict using Facebook to spy on others
 # Caracteristici ale participantilor
@@ -182,6 +182,7 @@ bd.meta$sample[8] <- "Convenienta"
 # Caracteristici de masurare
 bd.meta$measure[8] <- "Standardizata"
 bd.meta$method[8] <- "Chestionar"
+
 ## 9. Studiul ref_059.a - CODARE ####
 ## Buckels E.E. Trapnell P. D., Andjelovic T, Paulhus D.L. (2018) - Internet Trolling and Everyday Sadism: Parallel Effects on Pain Perception and Moral Judgment
 # Caracteristici ale participantilor
@@ -199,8 +200,8 @@ bd.meta$sample[9] <- "Convenienta"
 # Caracteristici de masurare
 bd.meta$measure[9] <- "Standardizata"
 bd.meta$method[9] <- "Chestionar"
-
 temp <- bd.meta[1:9,]
+
 ## 10. Studiul ref_059.b - CODARE ####
 ## Buckels E.E. Trapnell P. D., Andjelovic T, Paulhus D.L. (2018) - Internet Trolling and Everyday Sadism: Parallel Effects on Pain Perception and Moral Judgment
 # Caracteristici ale participantilor
@@ -240,7 +241,8 @@ bd.meta$sample[11] <- "Convenienta"
 # Caracteristici de masurare
 bd.meta$measure[11] <- "Standardizata"
 bd.meta$method[11] <- "Chestionar"
-## 12. Studiul ref_068 - CODARE
+
+## 12. Studiul ref_068 - CODARE ####
 ## Kircaburuna K., Jonasonb P.K., Griffithsc M.D. (2018) - The Dark Tetrad traits and problematic social media use: The mediating role of cyberbullying and cyberstalking
 # Caracteristici ale participantilor
 bd.meta$author[12] <- "Kircaburuna K., Jonasonb P.K., Griffithsc M.D."
@@ -257,7 +259,8 @@ bd.meta$sample[12] <- "Lot cercetare"
 # Caracteristici de masurare
 bd.meta$measure[12] <- "Standardizata"
 bd.meta$method[12] <- "Chestionar"
-## 13. Studiul ref_069 - CODARE
+
+## 13. Studiul ref_069 - CODARE ####
 ## Gylfason H.F., Sveinsdottir A.H., Vésteinsdóttir V., Sigurvinsdottir R. (2021) - Haters Gonna Hate, Trolls Gonna Troll: The Personality Profile of a Facebook Troll
 # Caracteristici ale participantilor
 bd.meta$author[13] <- "Gylfason H.F., Sveinsdottir A.H., Vésteinsdóttir V., Sigurvinsdottir R."
@@ -274,7 +277,8 @@ bd.meta$sample[13] <- "Convenienta"
 # Caracteristici de masurare
 bd.meta$measure[13] <- "Standardizata"
 bd.meta$method[13] <- "Chestionar"
-## 14. Studiul ref_150 - CODARE
+
+## 14. Studiul ref_150 - CODARE ####
 ## Duncan Z., March E. (2019) - Examining the Dark Tetrad and Its Links to Cyberbullying
 # Caracteristici ale participantilor
 bd.meta$author[14] <- "Duncan Z., March E."
@@ -291,7 +295,8 @@ bd.meta$sample[14] <- "Convenienta"
 # Caracteristici de masurare
 bd.meta$measure[14] <- "Standardizata"
 bd.meta$method[14] <- "Chestionar"
-## 15. Studiul ref_159 - CODARE
+
+## 15. Studiul ref_159 - CODARE ####
 ## Ferenczi N., Marshall T.C., Bejanyan K. (2016) - Are sex differences in antisocial and prosocial Facebook use explained by narcissism and relational self-construal?
 # Caracteristici ale participantilor
 bd.meta$author[15] <- "Ferenczi N., Marshall T.C., Bejanyan K."
@@ -308,7 +313,8 @@ bd.meta$sample[15] <- "Convenienta"
 # Caracteristici de masurare
 bd.meta$measure[15] <- "Standardizata"
 bd.meta$method[15] <- "Chestionar"
-## 16. Studiul ref_195 - CODARE
+
+## 16. Studiul ref_195 - CODARE ####
 ## Hussain Z., Wegmann E., Grifths M.D. (2021) - The association between problematic  social networking site use, dark triad traits,and emotion dysregulation
 # Caracteristici ale participantilor
 bd.meta$author[16] <- "Hussain Z., Wegmann E., Grifths M.D."

@@ -15,7 +15,8 @@ efecte$alpha.2 <- as.numeric(efecte$alpha.2)
 
 ds.global <- efecte %>%
   dplyr::filter(moderator.2 != "Age") %>%
-  dplyr::filter(moderator.2 != "Gender")
+  dplyr::filter(moderator.2 != "Gender") %>%
+  dplyr::filter(!is.infinite(es))
 # Agregarea efectiva a studiilor si constuirea noii baze de date
 ds.global <- agg(id = study, es = es, var = var,  cor = .5, 
             method="BHHR", mod = NULL, data = ds.global); ds.global
@@ -23,10 +24,11 @@ ds.global <- agg(id = study, es = es, var = var,  cor = .5,
 g.global <- metagen(TE = es, seTE = var, data = ds.global,
                     method.tau = "SJ", hakn = T,
                     prediction = T, sm = "SMD",
-                    studlab = paste(study))
-g.forest <- meta::forest(g.global, sortvar=TE,  xlim = c(-2,2),
-                 rightlabs = c("g","95% CI","weight"), leftlabs = c("Author", "d","Standard Error"),
-                 lab.e = "Intervention", pooled.totals = FALSE,
-                 text.random = "Overall effect", print.tau2 = TRUE, 
-                 col.diamond = "blue", col.diamond.lines = "black", 
-                 col.predict = "black", print.I2.ci = TRUE, digits.sd = 2)
+                    studlab = paste(id))
+g.forest <- meta::forest(g.global, digits.sd = 2, 
+                         print.I2 = T, print.I2.ci = T, print.tau2 = T, print.tau2.ci = T,
+                         print.tau = T, print.tau.ci = T, print.Q = F, 
+                         pooled.totals = F, weight.study = "fixed", prediction = T,
+                         rightlabs = c("g","95% CI","weight"), 
+                         leftlabs = c("Author", "d","Standard Error"),
+                         col.diamond = "green", col.fixed = "red", col.random = "green")
