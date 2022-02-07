@@ -1,65 +1,135 @@
-# Instalarea pachetelor necesare
-if(!require(bib2df)) install.packages("bib2df")
+if(!require(scholar)) install.packages("scholar")
 if(!require(dplyr)) install.packages("dplyr")
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("elizagrames/litsearchr")
+if(!require(bib2df)) install.packages("bib2df")
+if(!require(PRISMA2020)) install.packages("PRISMA2020")
+if(!require(revtools)) install.packages("revtools")
 if(!require(flextable)) install.packages("flextable")
 if(!require(writexl)) install.packages("writexl")
-if(!require(revtools)) install.packages("revtools")
-if(!require(PRISMA2020)) install.packages("PRISMA2020")
+devtools::install_github("nealhaddaway/GSscraper")
 
-# Incarcarea librariilor necesare
-library(bib2df); library(dplyr); library(PRISMA2020)
-library(revtools); library(flextable); library(writexl)
+library(scholar); library(dplyr); library(litsearchr)
+library(bib2df); library(PRISMA2020); library(revtools)
+library(flextable); library(writexl)
 
-### Construirea si aranjarea tabelului centralizator ####
+# Utilizarea pachetului „scholar” ####
+id <- "20pY4EYAAAAJ"
+
+# Extragerea publicatiilor si a numarului de citari
+works <- get_publications(id); nrow(works)
+cites <- get_citation_history(id)
+sum(cites$cites); range(cites$year)
+
+# Extragerea informatiilor despre autor, profil si indice hirsh
+author <- get_profile(id)
+author$name; author$affiliation; author$h_index; author$i10_index; author$total_cites; author$interests
+
+# Compararea carierei autorilor
+comparare <- compare_scholar_careers(ids = c(id, 'BXrDvr8AAAAJ'))
+comparare %>%
+  dplyr::group_by(name) %>%
+  dplyr::summarise(total_citari = sum(cites),
+                   primul.an = min(year),
+                   ultimul.an = max(year))
+
+# Afisarea informatiilor despre jurnalele in care a publicat autorul
+impact <- get_journalrank(journals = works$journal); table(is.na(impact$Rank))
+range(as.numeric(impact$Rank), na.rm = T)
+range(as.numeric(impact$SJR), na.rm = T)
+range(as.numeric(impact$H.index), na.rm = T)
+metrics <- get_impactfactor(journals = works$journal)
+range(as.numeric(metrics$ImpactFactor), na.rm = T)
+range(as.numeric(metrics$Eigenfactor), na.rm = T)
+
+
+# Rafinarea cuvintelor cheie ####
+# Importul selectiei 
+surse <- import_results(file = "Minimal.bib")
+# Extragerea termenilor din titlu, abstract si cuvinte cheie
+extract_terms(text = surse$title, method = "fakerake", 
+              min_freq = 3, language = "English")
+extract_terms(text = surse$keywords, method = "fakerake", 
+              min_freq = 1, language = "English")
+extract_terms(text = surse$abstract, method = "fakerake", 
+              min_freq = 3, language = "English")
+
+# Crearea DFM
+dfm <- create_dfm(elements = surse$abstract,
+                  features = c("cyberbullying", "social network", "Facebook", "Twitter",
+                               "YouTube", "Instagram", "Pinterest", "SnapChat", 
+                               "dark tetrad","dark triad",
+                               "social media", "triad personality traits", "triad traits", 
+                               "triad personality"))
+# Crearea retelei de asociere
+retea.asociere <- create_network(search_dfm = as.matrix(dfm), min_studies = 1, min_occ = 1)
+plot(retea.asociere, main = "Reteaua de asociere a cuvintelor cheie")
+dfm <- create_dfm(elements = surse$abstract,
+                  features = c("cyberbullying", "social media", "Facebook", "Twitter",
+                               "YouTube", "Instagram", "Pinterest", "SnapChat", 
+                               "dark tetrad","dark triad",
+                               "social media", "triad personality traits", "triad traits", 
+                               "triad personality"))
+dfm <- create_dfm(elements = surse$abstract,
+                  features = c("cyberbullying", "Facebook", "Twitter",
+                               "YouTube", "Instagram", "Pinterest", "SnapChat", 
+                               "dark triad", "triad personality traits", "triad traits", 
+                               "triad personality"))
+# Extragerea cuvintelor cheie
+get_keywords(retea.asociere)
+
+# Construirea si aranjarea tabelului centralizator ####
 tabel.surse <- data.frame(ID = NA, Type = NA, Authors = NA, Year = NA, Title = NA,
-                          Journal = NA, Abstract = NA, Keywords = NA, Search = NA, 
-                          Disp = NA, Analyst = NA, DOI = NA)
-temp <- bib2df("Elsevier DB.bib")
-temp <- bib2df("Wiley DB.bib")
-temp <- bib2df("WoS DB.bib")
-temp <- bib2df("Scopus DB.bib")
-
-# Extragerea datelor - ITERATIV
-rec <- 1
-while(rec <= nrow(temp)) {
-  sursa <- temp %>%
-    filter(BIBTEXKEY == temp$BIBTEXKEY[rec])
-  id <- sursa$BIBTEXKEY
-  type <- sursa$CATEGORY
-  authors <- paste(unlist(sursa$AUTHOR), collapse="; ")
-  year <- sursa$YEAR
-  title <- gsub("[{|}]", "", sursa$TITLE)
-  journal <- sursa$JOURNAL
-  abstract <- sursa$ABSTRACT
-  keywords <- sursa$KEYWORDS
-  #db <- paste("Elsevier \n", date())
-  #db <- paste("Wiley \n", date())
-  #db <- paste("WoS \n", date())
-  db <- paste("Scopus \n", date());  keywords <- sursa$KEY
-  dispos <- "NO"
-  analist <- paste("COD \n", date())
-  doi <- sursa$DOI
-  # Actualizarea tabelului centralizator - ITERATIV
-  tabel.surse <- rbind(tabel.surse, 
-                       c(id, type, authors, year, title, journal,  
-                         abstract, keywords, db, dispos, analist, doi))
-  rec <- rec + 1   # Trecerea la urmatoarea sursa
+                          Journal = NA, Abstract = NA, Keywords = NA, DB = NA, DOI = NA)
+# Importul bibliografiei in R
+sursa <- bib2df("Elsevier Science Direct.bib"); dbase <- paste("Elsevier Science Direct \n", date()); rec <- 1
+sursa <- bib2df("Elsevier Scopus.bib"); dbase <- paste("Elsevier Scopus \n", date()); rec <- 1
+sursa <- bib2df("Web of science.bib"); dbase <- paste("Web of science \n", date()); rec <- 1
+sursa <- bib2df("Wiley Ebooks.bib"); dbase <- paste("Wiley Ebooks \n", date()); rec <- 1
+sursa <- bib2df("Springer Link.bib"); dbase <- paste("Springer Link\n", date()); rec <- 1
+while(rec <= nrow(sursa)) {
+    rand <- sursa %>%
+      filter(BIBTEXKEY == sursa$BIBTEXKEY[rec])
+    id <- rand$BIBTEXKEY
+    type <- rand$CATEGORY
+    authors <- paste(unlist(rand$AUTHOR), collapse="; ")
+    year <- rand$YEAR
+    title <- gsub("[{|}]", "", rand$TITLE)
+    journal <- rand$JOURNAL
+    abstract <- rand$ABSTRACT
+    keywords <- rand$KEYWORDS
+    db.nume <- dbase
+    doi <- rand$DOI
+    # Actualizarea tabelului centralizator - ITERATIV
+    tabel.surse <- rbind(tabel.surse, 
+                         c(id, type, authors, year, title, journal,  
+                           abstract, keywords, db.nume, doi))
+    rec <- rec + 1   # Trecerea la urmatorul rand
 }
 
 # Stergerea primei inregistrari si a obiectelor inutile - LA FINAL
 if (is.na(tabel.surse[1,])) tabel.surse <- tabel.surse[-1,]
-rm(sursa, temp, abstract, analist, authors, db, dispos, doi, id, journal,
-   keywords, rec, title, type, year)
+rm(rand, sursa, abstract, authors, doi, id, journal,
+   keywords, rec, title, type, year, db.nume, dbase)
 save(tabel.surse, file = "Centralizator.Rdata")
 
-### Crearea structurii PRISMA ####
+# Scrappingul datelor din alte surse de date ####
+search.string <- 'cyberbullying AND (Facebook OR Twitter OR Youtube OR Instagram OR Pinterest OR SnapChat) AND ("dark triad" OR "triad personality traits" OR "triad traits" OR "triad personality")'
+scrape_hits(search_terms = search.string,
+  writefile = T, verbose = T, database = "ndltd",
+  directory = "./")
+registers <- 0; rm(search.string)
+
+# Crearea structurii PRISMA ####
 PRISMA.template <- read.csv(system.file("extdata", "PRISMA.csv", package = "PRISMA2020"))
 # Incarcarea informatiilor in sablonul PRISMA - TOTALUL SURSELOR
 PRISMA.template <- PRISMA.template %>%
   mutate(boxtext = case_when(data == "identification"~"Identification", T~boxtext))
-PRISMA.template$n[which(PRISMA.template$data == "database_results")] <- nrow(tabel.surse)
+total.db <- nrow(tabel.surse)
+PRISMA.template$n[which(PRISMA.template$data == "database_results")] <- total.db
+PRISMA.template$n[which(PRISMA.template$data == "register_results")] <- registers
 
-# Desenarea si afisarea diagramei
+# Desenarea si afisarea diagramei - FAZA INITIALA
 PRISMA <- PRISMA_flowdiagram(PRISMA_data(PRISMA.template),
                              interactive = T, previous = F, other = F,
                              fontsize = 10, font = "Arial",
@@ -72,39 +142,35 @@ PRISMA <- PRISMA_flowdiagram(PRISMA_data(PRISMA.template),
                              side_boxes = T)
 PRISMA; PRISMA_save(PRISMA, overwrite = T, filename = "PRISMA.png", filetype = "PNG")
 
-### Cautarea inregistrarilor duplicat ####
+# Cautarea inregistrarilor duplicat ####
 gasite <- find_duplicates(data = tabel.surse,
                           match_variable = "DOI",
                           match_function = "exact")
 gasite <- extract_unique_references(tabel.surse, gasite)
 duplicate <- sum(gasite$n_duplicates) - nrow(gasite); tabel.surse <- gasite
-colnames(tabel.surse) <- c(names(tabel.surse[1:12]), "Duplicates")
-# Scanare suplimentara a duplicatelor
+# Scanare suplimentara a duplicatelor si generarea tabelului de analiza
 rezult <- screen_duplicates(x = tabel.surse)
 duplicate <- duplicate + nrow(tabel.surse) - nrow(rezult)
 PRISMA.template$n[which(PRISMA.template$data == "duplicates")] <- duplicate
 
-### Screeningul articolelor dupa topic ####
+# Screeningul articolelor dupa topic ####
 rezult <- screen_topics(x = rezult)
 temp <- rezult$raw %>%
   filter(screened_topics == "selected")
 del.topics <- nrow(rezult$raw) - nrow(temp)
 PRISMA.template$n[which(PRISMA.template$data == "excluded_automatic")] <- del.topics
 
-### Screeningul articolelor dupa titlu ####
+# Screeningul articolelor dupa titlu ####
 rezult <- screen_titles(x = temp)
 temp <- rezult %>%
   filter(screened_titles == "selected")
 del.titles <- nrow(rezult) - nrow(temp)
 PRISMA.template$n[which(PRISMA.template$data == "excluded_other")] <- del.titles
 
-# Salvarea fisierului Excel si HTML
-tabel.surse <- temp %>%
-  select( -screened_topics, - screened_titles, -duplicates, -matches, -display, -topic)
-write_xlsx(tabel.surse, path = "Centralizator.xlsx")
-tabel <- flextable(data = tabel.surse) %>% theme_box
-tabel
+# Salvarea fisierului Excel si HTML ####
+tabel.surse <- temp; write_xlsx(tabel.surse, path = "Centralizator.xlsx")
+tabel <- flextable(data = tabel.surse) %>% theme_box; tabel
 tabel %>% save_as_html(path = "Centralizator.html")
 save(tabel.surse, file = "Centralizator.Rdata")
 save(PRISMA.template, file = "PRISMA.Rdata")
-rm(gasite, rezult, tabel, temp, del.titles, del.topics, duplicate)
+rm(gasite, rezult, tabel, temp)

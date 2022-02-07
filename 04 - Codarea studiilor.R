@@ -1,31 +1,7 @@
-# Incarcarea librariilor necesare
-library(dplyr)
-
 # Incarcarea setulului de date si a sablonului PRISMA
 load("Centralizator.Rdata"); load("PRISMA.Rdata")
-# Listare referinte si DOI
-tabel.surse %>%
-  dplyr::select(label, doi)
-# Neidentificate - ref_077, ref_273
-lipsa <- 1 + 1
-PRISMA.template$n[which(PRISMA.template$data == "dbr_notretrieved_reports")] <- lipsa
-PRISMA.template$n[which(PRISMA.template$data == "dbr_assessed")] <- nrow(tabel.surse) - lipsa
 
-# Desenarea si afisarea diagramei
-PRISMA <- PRISMA_flowdiagram(PRISMA_data(PRISMA.template),
-                             interactive = T, previous = F, other = F,
-                             fontsize = 10, font = "Arial",
-                             title_colour = "DarkOrange",         # Culoarea titului sectiunii - Baze de date
-                             greybox_colour = "DarkOliveGreen",   # Culoarea intregii sectiuni - Alte surse
-                             #main_colour = "Red",                # Culoarea bordurilor - Baze de date
-                             arrow_colour = "SteelBlue",          # Culoarea sagetii
-                             arrow_head = "vee",                  # Tipul varfului sagetii
-                             #arrow_tail = "none",                # Tipul cozii sagetii
-                             side_boxes = T)
-PRISMA; PRISMA_save(PRISMA, overwrite = T, filename = "PRISMA.png", filetype = "PNG")
-save(PRISMA.template, file = "PRISMA.Rdata")
-
-# Construirea bazei de date cu articolele codate
+# Construirea bazei de date cu articolele codate ####
 bd.meta <- tabel.surse %>%
   dplyr::select(label, author, year) %>%
   dplyr::filter(
@@ -332,6 +308,77 @@ bd.meta$sample[16] <- "Convenienta"
 bd.meta$measure[16] <- "Standardizata"
 bd.meta$method[16] <- "Chestionar"
 
+## 17. Studiul ref_216 - CODARE ####
+## Kircaburuna K., Jonasonb P.K., Griffithsc M.D. (2018) - The Dark Tetrad traits and problematic online gaming: The mediating role of online gaming motives and moderating role of game types
+# Caracteristici ale participantilor
+bd.meta$author[17] <- "Kircaburuna K., Jonasonb P.K., Griffithsc M.D."
+bd.meta$n[17] <- 421
+bd.meta$p.male[17] <- 1.000
+bd.meta$m.age[17] <- 20.82
+bd.meta$pop[17] <- "Generala"
+bd.meta$prize[17] <- F
+bd.meta$country[17] <- "Turcia"
+# Caracteristici de design
+bd.meta$design[17] <- "SEM"
+bd.meta$subgroup[17] <- NA
+bd.meta$sample[17] <- "Lot de cercetare"
+# Caracteristici de masurare
+bd.meta$measure[17] <- "Standardizata"
+bd.meta$method[17] <- "Chestionar"
+
+## 18. Studiul ref_221 - CODARE ####
+## Kircaburun K., Jonason P., Griffiths M.D., Aslanargun E. (2019) - Examining the Dark Tetrad and Its Links to Cyberbullying
+# Caracteristici ale participantilor
+bd.meta$author[18] <- "Kircaburun K., Jonason P., Griffiths M.D., Aslanargun E."
+bd.meta$n[18] <- 280 + 492
+bd.meta$p.male[18] <- 280 / (280 + 492)
+bd.meta$m.age[18] <- 20.72
+bd.meta$pop[18] <- "Studenti"
+bd.meta$prize[18] <- F
+bd.meta$country[18] <- "Turcia"
+# Caracteristici de design
+bd.meta$design[18] <- "SEM"
+bd.meta$subgroup[18] <- "Gen"
+bd.meta$sample[18] <- "Convenienta"
+# Caracteristici de masurare
+bd.meta$measure[18] <- "Standardizata"
+bd.meta$method[18] <-"Chestionar"
+
+## 19. Studiul ref_224 - CODARE ####
+## Kircaburun K., Jonason P., Griffiths M.D. (2018) - The dark side of internet: Preliminary evidence for the associations of dark personality traits with specific online activities and problematic internet use
+# Caracteristici ale participantilor
+bd.meta$author[19] <- "Kircaburun K., Jonason P., Griffiths M.D."
+bd.meta$n[19] <- 772
+bd.meta$p.male[19] <- 1 - 0.64 
+bd.meta$m.age[19] <- 20.72
+bd.meta$pop[19] <- "Studenti"
+bd.meta$prize[19] <- F
+bd.meta$country[19] <- "Turcia"
+# Caracteristici de design
+bd.meta$design[19] <- "SEM"
+bd.meta$subgroup[19] <- "Gen"
+bd.meta$sample[19] <- "Convenienta"
+# Caracteristici de masurare
+bd.meta$measure[19] <- "Standardizata"
+bd.meta$method[19] <- "Chestionar"
+
+## 20. Studiul ref_244 - CODARE ####
+## March E., Grieve R., Marrington J., Jonason P.K. (2017) - Trolling on Tinder (and other dating apps): Examining the role of the Dark Tetrad and impulsivity
+# Caracteristici ale participantilor
+bd.meta$author[20] <- "March E., Grieve R., Marrington J., Jonason P.K"
+bd.meta$n[20] <- 357
+bd.meta$p.male[20] <- .29 
+bd.meta$m.age[20] <- 22.5
+bd.meta$pop[20] <- "Generala"
+bd.meta$prize[20] <- F
+bd.meta$country[20] <- "Australia"
+# Caracteristici de design
+bd.meta$design[20] <- "Regresii"
+bd.meta$subgroup[20] <- "Gen"
+bd.meta$sample[20] <-  "Convenienta"
+# Caracteristici de masurare
+bd.meta$measure[20] <- "Standardizata"
+bd.meta$method[20] <- "Chestionar"
 
 
   ## 11. Studiul ref_067 - CODARE
@@ -379,5 +426,3 @@ bd.meta$method[16] <- "Chestionar"
 # Sutton, J., & Keogh, E. (2000). Social competition in school: Relationships with bullying, Machiavellianism and personality. British Journal of Educational Psychology, 70, 443–456. <http://dx.doi.org/10.1348/000709900158227>.
 #	Van Geel, M., Goemans, A., Toprak, F., & Vedder, P. (2017). Which personality traits are related to traditional bullying and cyberbullying? A study with the Big Five, Dark Triad and sadism. Personality and Individual Differences, 106, 231e235. https://doi.org/10.1016/j.paid.2016.10.063.
 #	Washburn, J. J., McMahon, S. D., King, C. A., Reinecke, M. A., & Silver, C. (2004). Nar-cissistic features in young adolescents: Relations to aggression and internalizing symptoms. Journal of Youth and Adolescents, 33, 247–260.
-
-
