@@ -1,31 +1,13 @@
 # Incarcarea pachetelor necesare
 if (!require(meta)) install.packages("meta")
-
 library(dplyr); library(meta); library(MAd)
-
-# Incarcarea setulului de date si a sablonului PRISMA
-load("Efecte.RData"); load("PRISMA.Rdata")
-
-# Selectia si conversia studiilor ####
-efecte$es <- as.numeric(efecte$es); efecte$sample.size <- as.numeric(efecte$sample.size)
-efecte$var <- as.numeric(efecte$var); efecte$se <- as.numeric(efecte$se)
-efecte$ci.lo <- as.numeric(efecte$ci.lo); efecte$ci.hi <- as.numeric(efecte$ci.hi)
-efecte$year <- as.numeric(efecte$year); efecte$weight <- as.numeric(efecte$weight)
-efecte$alpha.1 <- as.numeric(efecte$alpha.1); efecte$alpha.2 <- as.numeric(efecte$alpha.2)
-efecte$moderator.1 <- factor(efecte$moderator.1); efecte$moderator.2 <- factor(efecte$moderator.2)
-
-range(efecte$es)
-ds.global <- efecte %>%
-  dplyr::filter(!is.infinite(es)) %>%
-  dplyr::filter(es < 1000)
-range(ds.global$es); shapiro.test(ds.global$es)
+# Incarcarea setulului de date
+load("Finala.RData")
 
 # Agregarea studiilor si construirea noii baze de date ####
-efecte.agg <- agg(data = ds.global, id = study, method="BHHR",
+efecte.agg <- agg(data = ds.global, id = study, method = "BHHR",
                  es = es, var = var,  cor = .5)
-efecte.agg <- agg(data = ds.global, id = study, mod = moderator.2,
-                 es = es, var = var,  cor = .5, method = "BHHR") 
-n <- efecte %>%
+n <- ds.global %>%
   group_by(study) %>%
   summarise(n = round(mean(sample.size)))
 efecte.agg <- efecte.agg %>%
@@ -44,7 +26,7 @@ aleatorii <- metagen(data = efecte.agg, TE = es, seTE = se, studlab = id,
                 method.tau = "SJ", sm = "BHHR"); summary(aleatorii)
 
 # Desenarea graficului de tip forest plot ####
-forest(aleatorii, layout = "meta", xlim = c(-3, 3), sortvar = TE,
+forest(aleatorii, layout = "meta", xlim = c(-1.5, 1.5), sortvar = TE,
        rightlabs = c("g","95% CI","weight"),
        leftlabs = c("Author(s) and Year", "g","Standard Error"),
        text.fixed = "Common effect size",
