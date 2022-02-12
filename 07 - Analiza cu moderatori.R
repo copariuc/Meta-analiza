@@ -1,7 +1,7 @@
 # Incarcarea librariilor si a setulului de date
 devtools::install_github("MathiasHarrer/dmetar")
 library(dplyr); library(meta); library(MAd)
-library(dmetar); load("Finala.RData")
+library(dmetar); library(metafor); load("Finala.RData")
 
 # Corectii de artefact ####
 ds.global <- atten(data = ds.global, g = es, xx = Rxx, yy = Ryy)
@@ -43,3 +43,44 @@ forest(moderare, layout = "meta", xlim = c(-2, 2), sortvar = TE,
        print.I2 = T, print.I2.ci = F,
        print.Q = F, print.pval.Q = F); dev.off()
 
+# Analiza studiilor cu efecte extreme ####
+no.out <- find.outliers(moderare); summary(no.out)
+pdf(file = 'Efect.pdf', height = 20, width = 10)
+forest(no.out, layout = "meta", xlim = c(-1.5, 1.5),
+       rightlabs = c("g","95% CI","weight"),
+       leftlabs = c("Author(s) and Year", "g","Standard Error"),
+       text.fixed = "Common effect size",
+       text.random = "Random effect size",
+       text.predict = "Prediction interval",
+       col.fixed = "red", col.random = "green", 
+       col.diamond = "dark orange", col.predict = "yellow",
+       print.tau2 = T, print.tau2.ci = T,
+       print.tau = F, print.tau.ci = F,
+       print.I2 = T, print.I2.ci = F,
+       print.Q = F, print.pval.Q = F); dev.off()
+
+# Analiza studiilor influentiale ####
+influence <- InfluenceAnalysis(moderare, random = T)
+options(ggrepel.max.overlaps = Inf)
+pdf(file = 'Efect.pdf', height = 5, width = 10)
+plot(influence, "baujat"); dev.off()
+pdf(file = 'Efect.pdf', height = 7, width = 12)
+plot(influence, "influence"); dev.off()
+pdf(file = 'Efect.pdf', height = 9, width = 9)
+plot(influence, "es"); dev.off()
+pdf(file = 'Efect.pdf', height = 9, width = 9)
+plot(influence, "I2"); dev.off()
+
+# Analiza GOSH ####
+date.gosh <- rma(yi = aleatorii$TE, sei = aleatorii$seTE,
+                 method = aleatorii$method.tau, test = "knha")
+parallel::detectCores() # Detectarea nucleelor procesorului
+rez.gosh <- gosh(date.gosh, parallel = "snow", 
+                 ncpus = 7, progbar = T); save(rez.gosh, file = "GOSH.Rdata")
+plot(rez.gosh, alpha = .05)
+diag.gosh <- gosh.diagnostics(rez.gosh, km = T, verbose = T)
+diag.gosh; plot(diag.gosh)
+# Actualizarea meta-analizei inițiale după excluderea unor studii
+actualizare <- update.meta(aleatorii, exclude = c(2, 19)); actualizare
+actualizare <- update.meta(moderare, 
+                           exclude = c(5, 5, 62, 63)); actualizare

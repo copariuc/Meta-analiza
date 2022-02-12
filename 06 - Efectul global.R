@@ -13,7 +13,7 @@ n <- ds.global %>%
 efecte.agg <- efecte.agg %>%
   arrange(id) %>%
   mutate(n = n$n) %>%
-  mutate(se = sqrt(var) / sqrt(n)); efecte.agg
+  mutate(se = sqrt(var) / sqrt(n)); efecte.agg; rm(n)
   
 # Analiza unui model cu efecte fixe ####
 fixe <- metagen(data = efecte.agg, TE = es, seTE = se, studlab = id,
